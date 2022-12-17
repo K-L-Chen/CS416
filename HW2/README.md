@@ -11,3 +11,5 @@ This is HW2 on Logistic Regression.
 
 ## Files to make the program work can be found at:
 [https://www.cs.wm.edu/~liqun/teaching/cs416/hw2/](https://www.cs.wm.edu/~liqun/teaching/cs416/hw2/)
+
+## [Link to repository proper](https://k-l-chen.github.io/CS416/HW2)

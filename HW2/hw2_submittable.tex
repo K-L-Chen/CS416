@@ -1,0 +1,100 @@
+\documentclass[12pt]{article} % 
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{tikz}
+
+\setlength{\oddsidemargin}{-0.15in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\partial}
+\begin{document} 
+\noindent
+\textbf{CSCI 416 - Intro to Machine Learning \quad 
+Homework 10/21 \hfill Kyle Chen}\\
+\begin{center}
+  (Due October 21)
+\end{center}
+\bigskip
+
+\begin{flushleft} %The ``flushleft'' environment makes sure everything is left aligned.
+
+\textbf{Question 1} 
+
+\begin{enumerate}
+	\item [1.1)] First, we will say that \[g(z) = \frac{1}{1+e^{-z}} = (1+e^{-z})^{-1}.\] This way, we can use the chain rule on while deriving the function. So,
+		\begin{align*}
+			\frac{d}{dz} g(z) &= \frac{d}{dz} (1+e^{-z})^{-1} &&\\
+			&= (-1)(1+e^{-z})^{-2} \times \frac{d}{dz} (1+e^{-z}) &&\\
+			&= (-1)(1+e^{-z})^{-2} \times (-1)(e^{-z}) &&\\
+			&= \frac{e^{-z}}{(1+e^{-z})^{2}} &&\\
+			&= \frac{1}{1+e^{-z}}\times \frac{e^{-z}}{1+e^{-z}}
+		\end{align*}
+		Since \[1 - g(z) = \frac{1+e^{-z}}{1+e^{-z}} - \frac{1}{1+e^{-z}} = \frac{e^{-z}}{1+e^{-z}},\] we have \[\frac{d}{dz} g(z) = g(z)(1-g(z)),\] and we are done.
+	\item [1.2)] Given that $1 - g(z) = \frac{e^{-z}}{1+e^{-z}}$, as shown above, and $g(-z) = \frac{1}{1 + e^z}$ we will proceed as such.
+		\begin{align*}
+			1 - g(z) &= \frac{e^{-z}}{1+e^{-z}} &&\\
+			&= \frac{1}{(1+e^{-z})(e^z)} &&\\
+			&= \frac{1}{e^z+e^{-z}e^{z}} &&\\
+			&= \frac{1}{e^z+1} &&\\
+			&= \frac{1}{1+e^z}
+		\end{align*}
+	Since we have already defined $g(-z) = \frac{1}{1 + e^z}$, we have already proved that $1-g(z) = g(-z)$, and we are done.
+	\item [1.3)] Given that $h_\theta(x) = g(\theta^Tx) = \frac{1}{1+e^{\theta^Tx}}$, we will derive the simplified cost function $J(\theta)$ as follows, assuming the base of $log$ is the natural number $e$:
+		\begin{align*}
+			\frac{\D}{\D\theta_J}J(\theta) &= \frac{\D}{\D\theta_J}(-y\ log\ h_\theta(x) - (1-y)\ log(1-h_\theta(x))) &&\\
+			&= -y\times \frac{1}{h_{\theta}(x)} \times \frac{\D}{\D\theta_J}(h_\theta(x)) - (1-y) \frac{1}{1 - h_{\theta}(x)}\times \frac{\D}{\D\theta_J}(1-h_\theta(x)) &&\\
+			&= -y\times \frac{1}{\frac{1}{1+e^{-\theta^Tx}}} \times \frac{\D}{\D\theta_J}(\frac{1}{1+e^{-\theta^Tx}}) - (1-y) \frac{1}{1 - \frac{1}{1+e^{-\theta^Tx}}}\times \frac{\D}{\D\theta_J}(1-\frac{1}{1+e^{-\theta^Tx}}) &&\\
+			&= -y\times (1+e^{-\theta^Tx}) \times \frac{\D}{\D\theta_J}(\frac{1}{1+e^{-\theta^Tx}}) - (1-y) \frac{1}{1 - \frac{1}{1+e^{-\theta^Tx}}}\times \frac{\D}{\D\theta_J}(1-\frac{1}{1+e^{-\theta^Tx}}) &&\\
+			&= -y\times (1+e^{-\theta^Tx}) \times \frac{\D}{\D\theta_J}(\frac{1}{1+e^{-\theta^Tx}}) - (1-y) \frac{1}{\frac{e^{-\theta^Tx}}{1+e^{-\theta^Tx}}}\times \frac{\D}{\D\theta_J}(1-\frac{1}{1+e^{-\theta^Tx}}) &&\\
+			&= -y\times (1+e^{-\theta^Tx}) \times \frac{\D}{\D\theta_J}(\frac{1}{1+e^{-\theta^Tx}}) - (1-y) \frac{1+e^{-\theta^Tx}}{e^{-\theta^Tx}}\times \frac{\D}{\D\theta_J}(1-\frac{1}{1+e^{-\theta^Tx}}) &&\\
+			&= -y\times (1+e^{-\theta^Tx}) \times \frac{\D}{\D\theta_J}(\frac{1}{1+e^{-\theta^Tx}}) - (1-y) \frac{1+e^{-\theta^Tx}}{e^{-\theta^Tx}}\times (-1)\frac{\D}{\D\theta_J}(\frac{1}{1+e^{-\theta^Tx}}) &&\\
+			&= (-y(1+e^{-\theta^Tx}) - (1-y)(\frac{1+e^{-\theta^Tx}}{e^{-\theta^Tx}})(-1)) \frac{\D}{\D\theta_J}(\frac{1}{1+e^{-\theta^Tx}})
+		\end{align*}
+
+
+		Since we've described the derivative of $\frac{d}{d\theta}g(z) = g(z)(1-g(z))$ above, we have
+		\begin{align*}
+			\frac{\D}{\D\theta_J} (\frac{1}{1+e^{-\theta^Tx}}) &= (-1)(1+e^{-\theta^Tx})^{-2} \times \frac{\D}{\D\theta_J} (1+e^{-\theta^Tx})&&\\
+			&= (-1)(1+e^{-\theta^Tx})^{-2} \times (-x_J)(e^{-\theta^Tx}) &&\\
+			&= \frac{e^{-\theta^Tx}}{(1+e^{-\theta^Tx})^{2}}(x_J) &&\\
+			&= (\frac{1}{1+e^{-\theta^Tx}})(\frac{e^{-\theta^Tx}}{1+e^{-\theta^Tx}})(x_J)
+		\end{align*}
+		So, we have:
+
+		\begin{align*}
+			&= (-y(1+e^{-\theta^Tx}) - (1-y)(\frac{1+e^{-\theta^Tx}}{e^{-\theta^Tx}})(-1))(\frac{1}{1+e^{-\theta^Tx}})(\frac{e^{-\theta^Tx}}{1+e^{-\theta^Tx}})(x_J) &&\\
+			&= (-y(\frac{1}{h_\theta(x)}) - (1-y)(\frac{1}{1-h_\theta(x)})(-1))(h_\theta(x))(1 - h_\theta(x))(x_J) &&\\
+			&= (-y(\frac{1}{h_\theta(x)}) - (-1+y)(\frac{1}{1-h_\theta(x)}))(h_\theta(x))(1 - h_\theta(x))(x_J) &&\\
+			&= (-y(\frac{1}{h_\theta(x)})\times(h_\theta(x))(1 - h_\theta(x)) - (-1+y)(\frac{1}{1-h_\theta(x)})\times(h_\theta(x))(1 - h_\theta(x)))(x_J) &&\\
+			&= (-y(1-h_\theta(x)) - (-1+y)(h_\theta(x)))(x_J) &&\\
+			&= (-y + y(h_\theta(x)) - (-1 + y)(h_\theta(x)))(x_J) &&\\
+			&= (-y + y(h_\theta(x))  + (h_\theta(x)) - y(h_\theta(x)))(x_J) &&\\
+			&= (-y + h_\theta(x))(x_J) &&\\	
+			&= (h_\theta(x) - y)(x_J)
+			%&= -y(1+e^{-\theta^Tx})(\frac{1}{1+e^{-\theta^Tx}})(\frac{e^{-\theta^Tx}}{1+e^{-\theta^Tx}})(x_J) - &&\\
+			%&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (1-y)(\frac{1+e^{-\theta^Tx}}{e^{-\theta^Tx}}) (-1)(\frac{1}{1+e^{-\theta^Tx}})(\frac{e^{-\theta^Tx}}{1+e^{-\theta^Tx}})(x_J) &&\\
+			%&= (-y(1+e^{-\theta^Tx})(\frac{1}{1+e^{-\theta^Tx}})(\frac{e^{-\theta^Tx}}{1+e^{-\theta^Tx}}) - &&\\
+			%&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (-1+y)(\frac{1+e^{-\theta^Tx}}{e^{-\theta^Tx}}) (\frac{1}{1+e^{-\theta^Tx}})(\frac{e^{-\theta^Tx}}{1+e^{-\theta^Tx}}))(x_J) &&\\
+			%&=-y(\frac{e^{-\theta^Tx}}{1+e^{-\theta^Tx}}) - (-1+y)\frac{1}{1+e^{-\theta^Tx}} &&\\
+			%&= -y(\frac{e^{-\theta^Tx}}{1+e^{-\theta^Tx}}) + \frac{1}{1+e^{-\theta^Tx}} - y\frac{1}{1+e^{-\theta^Tx}} &&\\
+			%&= (-y(1 - h_\theta(x)) + h_\theta(x) - y(h_\theta(x)))(x_J) &&\\
+			%&= (-y(1 - h_\theta(x) + h_\theta) + h_\theta(x))(x_J) &&\\
+			%&= (-y + h_\theta(x))(x_J) &&\\
+			%&= (h_\theta(x) - y)(x_J)
+		\end{align*}
+		And we are done.
+\end{enumerate}
+
+\end{flushleft}
+\end{document}

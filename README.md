@@ -1,8 +1,8 @@
-# CS416
-CSCI 416 - Intro To Machine Learning - with Professor Qun Li at William and Mary
+# Intro to Machine Learning
+Intro To Machine Learning - with Professor Qun Li
 
 ## Folders:
-1. [HW1](https://k-l-chen.github.io/CS416/HW1)
-2. [HW2](https://k-l-chen.github.io/CS416/HW2)
-3. [HW3](https://k-l-chen.github.io/CS416/HW3)
-4. [HW4](https://k-l-chen.github.io/CS416/HW4)
+1. [HW1](https://k-l-chen.github.io/I2ML-Work/HW1)
+2. [HW2](https://k-l-chen.github.io/I2ML-Work/HW2)
+3. [HW3](https://k-l-chen.github.io/I2ML-Work/HW3)
+4. [HW4](https://k-l-chen.github.io/I2ML-Work/HW4)

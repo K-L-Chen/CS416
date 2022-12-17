@@ -1,4 +1,4 @@
-This is HW1 for 416 on Linear and Logistic Regression.
+This is HW1 for 416 on Linear Regression.
 
 ## Files
 1. [Jupyter Notebook File](https://k-l-chen.github.io/CS416/HW1/exercise_1.ipynb)

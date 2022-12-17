@@ -1,0 +1,184 @@
+\documentclass[12pt]{article} % 
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{tikz}
+
+\setlength{\oddsidemargin}{-0.15in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\partial}
+\begin{document} 
+\noindent
+\textbf{CSCI 416 - Intro to Machine Learning \quad 
+Homework 9/30 \hfill Kyle Chen}\\
+\begin{center}
+  (Due September 30)
+\end{center}
+\bigskip
+
+\begin{flushleft} %The ``flushleft'' environment makes sure everything is left aligned.
+
+\textbf{Question 1} 
+\begin{enumerate}
+	\item[(1)]
+		\begin{align*}
+			\frac{\D}{\D u}f(u,v) &= 16uv^4+6
+		\end{align*}
+	\item[(2)]
+		\begin{align*}
+			\frac{\D}{\D v}f(u,v) &= 32u^2v^3+12v^2
+		\end{align*}
+	\item[(3)]
+		\begin{align*}
+			\frac{\D}{\D u}g(u,v,w) &= \frac{x}{u}+yvw^3
+		\end{align*}
+	\item[(4)]	
+		\begin{align*}
+			\frac{\D}{\D v}g(u,v,w) &= yuw^3
+		\end{align*}
+	\item[(5)]
+		\begin{align*}
+			\frac{\D}{\D w}g(u,v,w) &= 3yuvw^2
+		\end{align*}
+	\item[(6)]
+		\begin{align*}
+			\frac{\D}{\D u}h(u,v) &= \sum^m_{i = 1}{(x^{(i)})^2 u+x^{(i)}y^{(i)}v}
+		\end{align*}
+	\item[(7)]
+		\begin{align*}
+			\frac{\D}{\D v}h(u,v) &= \sum^m_{i = 1}{x^{(i)}y^{(i)}u+(y^{(i)})^2v}
+		\end{align*}
+\end{enumerate}
+
+%\vspace{1cm}
+\newpage
+\textbf{Question 2} 
+\begin{enumerate}
+	\item[(1)] Negative.
+	\item[(2)] Negative.
+	\item[(3)] Positive.
+	\item[(4)]	Negative.
+	\item[(5)] $u = 1, v = 2$ 
+\end{enumerate}
+
+\vspace{1cm}
+
+\textbf{Question 3} 
+\begin{enumerate}
+	\item[(1)]
+		\[
+		\left[
+			{\begin{array}{cc}
+		   		3 & -1 \\
+				2 & 5 \\
+				-2 & 2
+		  \end{array} } 
+		\right]
+		\cdot
+		\left[
+			{\begin{array}{cc}
+		   		u & a \\
+				v & b
+		  \end{array} } 
+		\right]
+		=
+		\left[
+			{\begin{array}{cc}
+		   		3u - v & 3a - b \\
+				2u + 5v & 2a+5b \\
+				-2u + 2v & -2a + 2b
+		  \end{array} } 
+		\right]
+		\]
+	\item[(2)] Yes, product $AB \in \R^{2\times4}$
+	\item[(3)] No.
+	\item[(4)]	 $y^TA$ is a row vector, $y^TA \in \R^{1\times2}$
+	\item[(5)] $Ax$ is a column vector, $Ax \in \R^3$
+	\item[(6)] Since we know that the zero vector $0$ is a row vector, we can proceed as follows:
+		\begin{align*}
+			(Bx + y)^TA^T &= 0 &&\\
+			(Bx + y)^TA^T\cdot (A^T)^-1 &= 0\cdot(A^T)^-1 &&\\
+			(Bx + y)^T(A^T\cdot (A^T)^-1) &= 0\cdot(A^T)^-1 &&\\
+			(Bx + y)^T(I^{n\times n}) &= 0 &&\\
+			(Bx + y)^T &= 0 &&\\
+			((Bx + y)^T)^T &= 0^T &&\\
+			Bx + y &= 0^T &&\\
+			Bx &= 0^T - y &&\\
+			Bx &= -y &&\\
+			B^{-1}\cdot Bx &= B^{-1}\cdot(-y) &&\\
+			(B^{-1}\cdot B)x &= -B^{-1}y &&\\
+			I^{n\times n}x &= -B^{-1}y &&\\
+			x &= -B^{-1}y
+		\end{align*}
+	and we are done.
+\end{enumerate}
+
+\vspace{1cm}
+
+\textbf{Question 4}
+\begin{verbatim}
+Part 1:
+ A = 
+ [[-2 -3]
+ [ 1  0]] 
+B = 
+ [[-1  1]
+ [ 1  0]] 
+x = 
+ [[-1]
+ [ 1]]
+Part 2:
+ C = 
+ [[-0.          1.        ]
+ [-0.33333333 -0.66666667]]
+Part 3:
+ AC = 
+ [[ 1.00000000e+00 -1.11022302e-16]
+ [ 0.00000000e+00  1.00000000e+00]] 
+CA = 
+ [[1. 0.]
+ [0. 1.]]
+Part 4: 
+ Ax = 
+ [[-1]
+ [-1]]
+Part 5:
+ A^(T) A = 
+ [[5 6]
+ [6 9]]
+Part 6:
+ Ax - Bx = 
+ [[-3]
+ [ 0]]
+Part 7:
+ ||x|| = 
+ [[1.41421356]]
+Part 8:
+ ||Ax - Bx|| = 
+ 3.0
+Part 9:
+ The first column of A is: 
+ [[-2]
+ [ 1]]
+Part 10:
+ New B matrix is: 
+ [[-1  1]
+ [ 1  0]]
+Part 11:
+ The element-wise product between the first and second columns of A is: 
+ [[6]
+ [0]]
+\end{verbatim}
+\end{flushleft}
+\end{document}
